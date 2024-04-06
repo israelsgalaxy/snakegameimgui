@@ -4,8 +4,9 @@ Classic snakegame built with DearImgui using GLFW and OpenGL backends
 ## Dependencies
 On Debian-based Linux distros run `apt install libimgui-dev libglfw3-dev libstb-dev`
 
-## Building
-Run `cmake -S . -B build` in project root
+## Build
+- Run `cmake -S . -B build` in project root
+- Run `make` or `ninja` in build folder
 
-## Running
+## Run
 Run `./build/snakegame` in project root
