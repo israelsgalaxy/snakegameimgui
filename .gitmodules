@@ -1,0 +1,3 @@
+[submodule "libsnakegame"]
+	path = libsnakegame
+	url = https://github.com/israelsgalaxy/libsnakegame.git
