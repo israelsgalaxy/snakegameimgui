@@ -6,7 +6,7 @@ constexpr float cell_size = gui::WINDOW_WIDTH / grid_size;
 constexpr float offset_y = gui::WINDOW_HEIGHT - gui::WINDOW_WIDTH;
 constexpr float min_delay_time = 0.1f;
 
-static SnakeGame::Direction snake_direction = SnakeGame::Direction::Halt;
+static SnakeGame::Direction user_direction = SnakeGame::Direction::Halt;
 
 enum class CellType { Food, Grid, SnakeHead, SnakeBody };
 
@@ -95,6 +95,7 @@ void gui::CreateContent() {
       if (ImGui::Button("Restart")) {
         delay_time = 0.5f;
         score = 0.0f;
+        user_direction = SnakeGame::Direction::Halt;
         snake_game.Reset();
         game_over = false;
         ImGui::CloseCurrentPopup();
@@ -110,8 +111,8 @@ void gui::CreateContent() {
   elapsed_time += io.DeltaTime;
 
   if (elapsed_time >= delay_time) {
-    if (!(snake_direction == SnakeGame::Direction::Halt)) {
-      switch (snake_game.MoveSnake(snake_direction)) {
+    if (!(user_direction == SnakeGame::Direction::Halt)) {
+      switch (snake_game.MoveSnake(user_direction)) {
       case SnakeGame::MoveResult::Body:
         game_over = true;
         break;
@@ -138,19 +139,19 @@ void gui::KeyCallback(GLFWwindow *window, int key, int scancode, int action,
   if (!io.WantCaptureKeyboard && action == GLFW_PRESS) {
     switch (key) {
     case GLFW_KEY_LEFT:
-      snake_direction = SnakeGame::Direction::Left;
+      user_direction = SnakeGame::Direction::Left;
       break;
     case GLFW_KEY_RIGHT:
-      snake_direction = SnakeGame::Direction::Right;
+      user_direction = SnakeGame::Direction::Right;
       break;
     case GLFW_KEY_DOWN:
-      snake_direction = SnakeGame::Direction::Down;
+      user_direction = SnakeGame::Direction::Down;
       break;
     case GLFW_KEY_UP:
-      snake_direction = SnakeGame::Direction::Up;
+      user_direction = SnakeGame::Direction::Up;
       break;
     case GLFW_KEY_SPACE:
-      snake_direction = SnakeGame::Direction::Halt;
+      user_direction = SnakeGame::Direction::Halt;
       break;
     }
   }
